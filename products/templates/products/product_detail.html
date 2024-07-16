@@ -1,5 +1,6 @@
 {% extends "_base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}جزئیات محصول {{ product.title }}{% endblock title %}
 {% block content %}
 <!-- Main Wrapper Start -->
@@ -142,7 +143,7 @@
                                                     <br>
                                                     <form action="" method='POST' class="form text-right">
                                                         {% csrf_token %}
-                                                        {{ comment_form.as_p }}
+                                                        {{ comment_form|crispy }}
                                                         <input type="submit" value="ارسال">
                                                     </form>
                                                 </div>
