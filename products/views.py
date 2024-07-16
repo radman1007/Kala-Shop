@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from .models import Product
+from django.views.generic import ListView, DetailView, CreateView
+from .models import Product, Comment
 from .forms import CommentForm
 
 class ProductListView(ListView):
@@ -19,3 +19,13 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['comment_form'] = CommentForm
         return context
+    
+    
+class CommentCreateView(CreateView):
+    model = Comment
+    form = CommentForm
+    
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.author = self.request.user
+        return super().form_valid(form)
